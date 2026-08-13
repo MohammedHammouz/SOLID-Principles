@@ -8,7 +8,6 @@ namespace LoggingServices
 {
     public class LoggingService
     {
-        public enum enLoggingType { ToFile, ToEventLog, ToDatabase }
         private ILogService _LogService;
         public LoggingService(ILogService LogService)
         {
@@ -16,18 +15,6 @@ namespace LoggingServices
         }
         public void Log(string message)
         {
-            //if (LoggingType == enLoggingType.ToFile)
-            //{
-            //    LoggingToFileService.Log(message);
-            //}
-            //else if (LoggingType == enLoggingType.ToEventLog)
-            //{
-            //    LoggingToEventLogService.Log(message);
-            //}
-            //else if (LoggingType == enLoggingType.ToDatabase)
-            //{
-            //    LoggingToDatabaseService.Log(message);
-            //}
             _LogService.Log(message);
         }
     }
