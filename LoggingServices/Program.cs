@@ -8,8 +8,8 @@ namespace LoggingServices
 {
     public class LoggingService
     {
-        private ILogService _LogService;
-        public LoggingService(ILogService LogService)
+        private ILogging _LogService;
+        public LoggingService(ILogging LogService)
         {
             _LogService = LogService;
         }
@@ -18,11 +18,11 @@ namespace LoggingServices
             _LogService.Log(message);
         }
     }
-    public interface ILogService
+    public interface ILogging
     {
         void Log(string message);
     }
-    public class LoggingToFileService:ILogService
+    public class LoggingToFileService:ILogging
     {
 
         public void Log(string message)
@@ -30,7 +30,7 @@ namespace LoggingServices
             Console.WriteLine($"\nLog to file: {message}");
         }
     }
-    public class LoggingToEventLogService : ILogService
+    public class LoggingToEventLogService : ILogging
     {
         public void Log(string message)
         {
@@ -38,7 +38,14 @@ namespace LoggingServices
         }
     }
 
-    public class LoggingToDatabaseService : ILogService
+    public class LoggingToDatabaseService : ILogging
+    {
+        public void Log(string message)
+        {
+            Console.WriteLine($"\nLog to Database: {message}");
+        }
+    }
+    public class LoggingToExcelService : ILogging
     {
         public void Log(string message)
         {
@@ -63,6 +70,11 @@ namespace LoggingServices
             LoggingService = new LoggingService(new LoggingToDatabaseService());
 
             // Log to Database
+            LoggingService.Log("Error Occured line xxx.");
+
+            LoggingService = new LoggingService(new LoggingToExcelService());
+
+            // Log to Excel
             LoggingService.Log("Error Occured line xxx.");
 
             Console.ReadKey();
